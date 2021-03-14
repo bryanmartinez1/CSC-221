@@ -1,0 +1,40 @@
+package sample;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+
+public class MyCircle extends MyShape {
+    private double rad;
+
+// Part a. getX, getY, getRadius - return the x- and y- coordinates of the center point
+//         and radius of the MyCircle object
+    MyCircle (int x , int y, double radius, Color color) {
+        super(x,y,color);
+        this.rad = radius;
+    }
+    public int getX() {
+        return super.getX();
+    }
+    public int getY() {
+        return super.getY();
+    }
+    public double getRadius() {
+        return rad;
+    }
+
+// Part b. toString - returns a string representation of the MyCircle object: radius,
+//         perimeter, and area;
+    @Override
+    public String toString(){
+        return "Circle:\n       Radius: " + rad + "\n       Perimeter: " + 2*Math.PI*rad +
+                "\n       Area: " + Math.PI *Math.pow(rad,2);
+    }
+
+
+// Part c. draw - draws a MyCircle object
+    @Override
+    public void draw (GraphicsContext Graphics) {
+        Graphics.setFill(super.getColor());
+        Graphics.fillOval(getX() - rad, getY() - rad, 2*rad, 2*rad);
+    }
+
+}
