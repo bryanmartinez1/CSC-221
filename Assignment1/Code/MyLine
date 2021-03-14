@@ -1,0 +1,44 @@
+package sample;
+
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+
+public class MyLine extends MyShape{
+    private double x1, y1; //First Endpoint
+    private double x2, y2; //Second Endpoint
+
+    MyLine(double X1, double Y1, double X2, double Y2, Color color) {
+        super(0,0,color);
+        this.x1 = X1;
+        this.y1 = Y1;
+        this.x2 = X2;
+        this.y2 = Y2;
+    }
+//Part a. length - returns the length of the MyLine object;
+    // length = square root((x2-x1)^2+(y2-y1)^2)
+    public double length () {
+        return Math.sqrt(Math.pow(x2-x1,2) + Math.pow(y2-y1,2));
+    }
+
+//Part b. xAngle - returns the angle (in degrees) of the MyLine object with the x-axis;
+    // angle = arctan((y2-y1)/(x2-x1))
+    public double xAngle() {
+        return Math.toDegrees(Math.atan((y2-y1)/(x2-x1)));
+    }
+
+//Part c. toString - returns a string representation of the MyLine object, including the line's endpoints,
+//        length, and angle with the x-axis;
+    @Override
+    public String toString () {
+        return "Line: \n        Line's Endpoints: (" + x1 + ", " + y1 + ") and (" + x2 + ", " + y2 + ")\n" +
+                "         Length: " + length() + "\n        Angle: " + xAngle() + "angle";
+    }
+
+//Part d. draws a MyLine object
+    @Override
+    public void draw (GraphicsContext Graphics) {
+        Graphics.setStroke(super.getColor());
+        //The line goes from (x1,y1) to (x2,y2)
+        Graphics.strokeLine(x1,y1,x2,y2);
+    }
+}
