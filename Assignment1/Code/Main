@@ -1,0 +1,89 @@
+package sample;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+    //The Canvas Width
+    int canvasWidth = 1000;
+    //The Canvas Height
+    int canvasHeight = 600;
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        try {
+            Canvas canvas = new Canvas(canvasWidth, canvasHeight);
+            primaryStage.setTitle("Assignment 1");
+            GraphicsContext Graphics = canvas.getGraphicsContext2D();
+
+        //The MaxPolyRadius is to make radius of the first polygon proportional of the smallest between the width and
+            // the height of the canvas
+            int MaxPolyRadius;
+            if (canvasWidth > canvasHeight) {
+                MaxPolyRadius = canvasHeight /3;
+            }
+            else {
+                MaxPolyRadius = canvasWidth/3;
+            }
+
+        //Creates and draws the first Hexagon, the border of that hexagon, and prints out properties of that hexagon
+            MyPolygon hexagon0 = new MyPolygon(canvasWidth/2, canvasHeight /2, MaxPolyRadius, 6,
+                    MyColor.TAN.colorJavaFX());
+            hexagon0.draw(Graphics);
+            hexagon0.borderOfPolygon(Graphics);
+            System.out.println(hexagon0);
+
+        //Creates and draws the first circle and prints the circles properties
+            MyCircle circle0 = new MyCircle(canvasWidth/2, canvasHeight /2,
+                    hexagon0.getSide()*(Math.sqrt(3)/2), MyColor.STEELBLUE.colorJavaFX());
+            circle0.draw(Graphics);
+            System.out.println(circle0);
+
+        //Creates and draws the second Hexagon and prints out properties of that hexagon
+            MyPolygon hexagon1 = new MyPolygon(canvasWidth/2, canvasHeight /2, circle0.getRadius(),
+                    6, MyColor.CRIMSON.colorJavaFX());
+            hexagon1.draw(Graphics);
+            System.out.println(hexagon1);
+
+        //Creates and draws the second circle and prints the circles properties
+            MyCircle circle1 = new MyCircle(canvasWidth/2, canvasHeight /2,
+                    hexagon1.getSide()*(Math.sqrt(3)/2), MyColor.GOLDENYELLOW.colorJavaFX());
+            circle1.draw(Graphics);
+            System.out.println(circle1);
+
+        //Creates and draws the final Hexagon and prints out properties of that hexagon
+            MyPolygon hexagon2 = new MyPolygon(canvasWidth/2, canvasHeight /2, circle1.getRadius(),
+                    6, MyColor.TEAL.colorJavaFX());
+            hexagon2.draw(Graphics);
+            System.out.println(hexagon2);
+
+        //Creates and draws the first line and prints it properties
+            MyLine line0 = new MyLine(0, canvasHeight, canvasWidth, 0, MyColor.BLACK.colorJavaFX());
+            line0.draw(Graphics);
+            System.out.println(line0);
+
+        //Creates and draws the second line and prints it properties
+            MyLine line1 = new MyLine(0, 0, canvasWidth, canvasHeight, MyColor.BLACK.colorJavaFX());
+            line1.draw(Graphics);
+            System.out.println(line1);
+
+            Graphics.strokeRect(0, 0, canvasWidth, canvasHeight);
+
+            StackPane root = new StackPane(canvas);
+            Scene scene = new Scene(root, canvasWidth, canvasHeight);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+            System.out.println();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
