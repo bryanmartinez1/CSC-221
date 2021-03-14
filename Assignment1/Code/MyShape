@@ -1,0 +1,55 @@
+package sample;
+
+import javafx.scene.paint.Color;
+import javafx.scene.canvas.GraphicsContext;
+
+public class MyShape {
+//Part a. getX, getY, getColor - return the x- and y- coordinates of the reference point
+//        and color of the myShape object
+    private int X, Y;
+    private Color colorMyShape;
+
+    MyShape (int x, int y, Color color) {
+        this.X = x;
+
+        this.Y = y;
+        this.colorMyShape = color;
+    }
+
+    public int getX() {
+        return X;
+    }
+
+    public int getY() {
+        return Y;
+    }
+
+    public Color getColor() {
+        return colorMyShape;
+    }
+
+/* Part b. area, perimeter - return the area and perimeter of the object. These methods must
+           be overridden in each subclass in the hierarchy. For the MyShape object, the methods
+           return zero */
+    public int area () {
+        return 0;
+    }
+
+    public int perimeter () {
+        return 0;
+    }
+
+//Part c. toString - returns the object's description as a String. This method must be overridden
+//        in each subclass hierarchy;
+    public String toString() {
+        return "Shape:\n"+ "        Reference Point: (" + getX()+ ", " + getY() + ")\n      Color: " + getColor()
+                + "\n       Area: " + area() + "\n     Perimeter: " + perimeter();
+    }
+
+/* Part d. draw - draws a myShape object. This method must be overridden in each subclass in the
+                  hierarchy. For myShape object, it paints the drawing canvas in the color specified*/
+    public void draw (GraphicsContext Graphics) {
+        Graphics.setFill(colorMyShape);
+        Graphics.fill();
+    }
+}
