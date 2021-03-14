@@ -1,0 +1,68 @@
+package sample;
+
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+
+public class MyPolygon extends MyShape {
+    double rad;
+    int s;
+    double xPoly[];
+    double yPoly[];
+    MyPolygon(int x, int y, double radius, int sides, Color colorPoly) {
+        super(x,y,colorPoly);
+        this.rad = radius;
+        this.s = sides;
+        xPoly = new double[sides];
+        yPoly = new double[sides];
+        double ang = (2 * Math.PI)/sides;
+        for (int i = 0; i < sides; ++i){
+            xPoly[i] = x + (radius*(-1 * Math.sin(i*ang)));
+            yPoly[i] = y + (radius*(-1 * Math.cos(i*ang)));
+        }
+
+    }
+// Part a. getX, getY, getAngle, getSide - return the x- and y-coordinates of the center point,
+//          point
+    public int getX () {
+        return super.getX();
+    }
+
+    public int getY() {
+        return super.getY();
+    }
+
+    public double getAngle () {
+        return Math.toDegrees((2* Math.PI)/s);
+    }
+
+    //side = square root ((x1-x2)^2)+(y1-y2)^2)
+    public double getSide() {
+        return Math.sqrt(Math.pow(xPoly[0]-xPoly[1],2) + Math.pow(yPoly[0]-yPoly[1],2));
+    }
+// Part b. toString - returns a string representation of MyPolygon object: side length, interior
+//         angle, perimeter, and area
+    @Override
+    public String toString() {
+        return "Polygon:\n        Side Length: " + getSide() + "\n        Interior Angle: " + getAngle() +
+                "\n        Perimeter: " + getSide()*6 + "\n        Area: " + ((3*Math.sqrt(3)/2)*Math.pow(getSide(),2));
+    }
+// Part c. draw - draws a MyPolygon object;
+    @Override
+
+    public void draw(GraphicsContext Graphics) {
+        Graphics.setFill(super.getColor());
+        Graphics.setStroke(super.getColor());
+        Graphics.setLineWidth((3));
+        Graphics.strokePolygon(xPoly, yPoly, s);
+        Graphics.fillPolygon(xPoly, yPoly, s);
+    }
+    //This draws the border of the polygon
+    //Makes lines go from the one point to the next point and makes 6 lines
+    public void borderOfPolygon (GraphicsContext Graphics) {
+        Graphics.setStroke(Color.BLACK);
+        for (int i = 1; i < s; ++i) {
+            Graphics.strokeLine(xPoly[i-1],yPoly[i-1],xPoly[i],yPoly[i]);
+        }
+        Graphics.strokeLine(xPoly[s-1], yPoly[s-1],xPoly[0],yPoly[0]);
+    }
+}
